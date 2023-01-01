@@ -347,13 +347,18 @@ func (b *BBA) countOutputs() (int, []bool) {
 	for i, val := range b.recvAux {
 		m[val] = int(i)
 	}
-	vals := []bool{}
+	vals := make(map[bool]struct{})
 	for _, val := range b.binValues {
 		if _, ok := m[val]; ok {
-			vals = append(vals, val)
+			vals[val] = struct{}{}
 		}
 	}
-	return len(b.recvAux), vals
+
+	var valsSet []bool
+	for val, _ := range vals {
+		valsSet = append(valsSet, val)
+	}
+	return len(b.recvAux), valsSet
 }
 
 // countBvals counts all the received Bval inputs matching b.
