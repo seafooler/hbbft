@@ -27,7 +27,7 @@ Top level HoneyBadger protocol that implements all the above sub(protocols) into
 Install dependencies
 
 ```shell
-make deps
+go mod tidy
 ```
 
 Run tests
