@@ -78,6 +78,13 @@ func makeNodes(n, ntx, txsize, batchSize int) []*hbbft.HoneyBadger {
 		for ii := 0; ii < ntx; ii++ {
 			nodes[i].AddTransaction(newTx(txsize))
 		}
+
+		go func(i int) {
+			for {
+				nodes[i].AddTransaction(newTx(txsize))
+				time.Sleep(time.Second)
+			}
+		}(i)
 	}
 	return nodes
 }
